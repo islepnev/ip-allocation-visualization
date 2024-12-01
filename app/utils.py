@@ -103,3 +103,12 @@ def get_top_level_prefix(prefixes):
             logging.error(f"Error processing prefix '{prefix}': {e}")
 
     raise ValueError("No valid /16 prefix found in the prefixes file.")
+
+
+def ip_in_prefix(ip_address, prefix):
+    try:
+        ip = ipaddress.ip_address(ip_address.split('/')[0])
+        network = ipaddress.ip_network(prefix)
+        return ip in network
+    except ValueError:
+        return False
